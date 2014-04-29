@@ -4,8 +4,7 @@ function[b_qh, a_hp] = pregenerateCoefficientMatrix(shor_paths, TOP_FLOWS,...
 numODPairsTotal = size(shor_paths,1);
 numODPairsTop = length(TOP_FLOWS);
 
-%% a_hp = 1 if a facility is assigned to potential location for combination
-% h
+%% a_hp = 1 if a facility is assigned to potential location for combination h
 
 % initialize all entries as 0
 numColumns_a = numNodes + numODPairsTop;
@@ -37,6 +36,8 @@ a_hp = [nodeCombinationMatrix routeCombinationMatrix];
 
 % exclude combinations with overlapping charging station and charging pad
 [a_hp, removeComs] = excludeCombinations_a_hp(a_hp, TOP_FLOWS, numNodes);
+
+
 
 %% b_qh = 1 if combination h can refule path q\
 % for now, initialize all elements to 0
