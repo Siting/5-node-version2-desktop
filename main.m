@@ -8,8 +8,8 @@ global full_range
 % set parameters
 networkID = '5Node-network';
 numNodes = 5;
-numRoutes = 2;       % number of candidate routes
-numFacilities = 3;
+numRoutes = 4;       % number of candidate routes
+numFacilities = 6;
 % numStations = 1;     % number of stations to locate
 % numPads = 1;         % number of pads(routes) to locate
 full_range = 5;      % set full capacity vehicle range (in mile)
@@ -19,10 +19,10 @@ c_pad = 5;           % cost for charging pad
 
 b_qh_all = [];
 a_hp_all = [];
-keyboard
-for numStations = 1 : numNodes
+
+for numPads = 1 : numRoutes
     
-    numPads = numFacilities - numStations;
+    numStations = numFacilities - numPads;
         
         keyboard
         % load critical infomation
@@ -40,14 +40,6 @@ for numStations = 1 : numNodes
 end
 
 
-
-
-
-
-
-
-
-
 % 
 % % compute refuled flow for each combination
 % % map keys: combinationID
@@ -61,12 +53,12 @@ end
 % comIDs_sorted = flipud(comIDs_sorted);
 
 % save variables
-save('./result/b_qh', 'b_qh');
-dlmwrite('./result/b_qh.txt', b_qh);
-save('./result/a_hp', 'a_hp');
-dlmwrite('./result/a_hp.txt', a_hp);
-save('./result/COMBINATION', 'COMBINATION');
-save('./result/comIDs_sorted', 'comIDs_sorted');
-dlmwrite('./result/comIDs_sorted.txt', comIDs_sorted);
+save('./result/b_qh', 'b_qh_all');
+dlmwrite('./result/b_qh.txt', b_qh_all);
+save('./result/a_hp', 'a_hp_all');
+dlmwrite('./result/a_hp.txt', a_hp_all);
+% save('./result/COMBINATION', 'COMBINATION');
+% save('./result/comIDs_sorted', 'comIDs_sorted');
+% dlmwrite('./result/comIDs_sorted.txt', comIDs_sorted);
 
 
