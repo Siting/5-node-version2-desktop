@@ -23,7 +23,7 @@ H = size(b_qh, 2);
 
 % assign variables into opt
 % f, A, b, Aeq, beq
-keyboard
+
 % first constraint: with b_qh
 [Q_1, P_1, H_1, A_1, b_1] = buildFirstCon(Q, P, b_qh);
 
@@ -45,3 +45,7 @@ f = -[Q_4; P_4; H_4];
 
 % optimize
 [x, fval] = bintprog(f,A,b,Aeq,beq);
+
+% save result
+save('./result/opt_result','x', 'fval', 'Q', 'P', 'H');
+
