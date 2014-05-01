@@ -9,7 +9,6 @@ function[b_qh, a_hp] = generateCoefficientMatrices(shortest_paths_matrix,...
 % retrieve all flows info: nodes + links
 % map keys: flowIDs
 % map structure ALL_FLOWS: flowID, origin, destination, cost, nodes, links
-size(shortest_paths_matrix,1);
 flowIDs = [1:size(shortest_paths_matrix,1)];
 [ALL_FLOWS] = retriveFlows(flowIDs, shortest_paths_matrix, linkIDMatrix);
 

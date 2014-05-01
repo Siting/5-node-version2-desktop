@@ -23,19 +23,56 @@ H = size(b_qh, 2);
 
 % assign variables into opt
 % f, A, b, Aeq, beq
-keyboard
-% first constraint: with b_qh
-[Q_1, P_1, H_1, A_1, b_1] = buildFirstCon(Q, P, b_qh);
 
+% first constraint: with b_qh
+Q_1 = eye(Q, Q);
+P_1 = zeros(Q, P);
+H_1 = -b_qh;
+A_1 = [Q_1 P_1 H_1];
+b_1 = zeros(Q, 1);
+keyboard
 % second constraint: with a_hp
-[Q_2, P_2, H_2, A_2, b_2] = buildSecondCon(H, a_hp, numFacilities, Q);
+P_2 = [];
+
+for h = 1 : H
+    a_row = -a_hp(h,:);
+    a_unit = diag(a_row);
+    P_2 = [P_2; a_unit];
+end
+% remove rows with all zeros
+P_2(all(P_2==0,2),:) = [];
+% keyboard
+% P_2 = [];
+% for h = 1 : H
+%     indices = find(a_hp(h,:) == 1);
+%     a_row = -a_hp(h,indices);
+%     a_unit = dia(a_row);
+% end
+
+
+
+
+
+
+    
+h_unit = eye(H,H);
+H_2 = kron(h_unit, ones(P,1));
+
+Q_2 = zeros(H*P,Q);
+
+A_2 = [Q_2 P_2 H_2];
+b_2 = zeros(H*P, 1);
 
 % form inequality constraint
 A = [A_1; A_2];
 b = [b_1; b_2];
 
 % third constraint: number of facilities
-[Q_3, P_3, H_3, Aeq, beq] = buildThirdCon(Q, P, H, numFacilities);
+Q_3 = zeros(1, Q);
+P_3 = ones(1, P);
+H_3 = zeros(1, H);
+Aeq = [Q_3 P_3 H_3];
+beq = numFacilities;
 
 % objective function
 Q_4 = flows(:,2);
@@ -43,5 +80,5 @@ P_4 = zeros(P,1);
 H_4 = zeros(H,1);
 f = -[Q_4; P_4; H_4];
 
-% optimize
+keyboard
 [x, fval] = bintprog(f,A,b,Aeq,beq);

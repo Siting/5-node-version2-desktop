@@ -6,25 +6,21 @@ dbstop if error
 global full_range
 
 % set parameters
+numFacilities = 2;
 networkID = '5Node-network';
 numNodes = 5;
-numRoutes = 4;       % number of candidate routes
-numFacilities = 6;
-% numStations = 1;     % number of stations to locate
-% numPads = 1;         % number of pads(routes) to locate
+numRoutes = 2;       % number of candidate routes = maximum num of pads
 full_range = 5;      % set full capacity vehicle range (in mile)
-c_station = 2;       % cost for charging station
-c_pad = 5;           % cost for charging pad
-
 
 b_qh_all = [];
 a_hp_all = [];
 
-for numPads = 1 : numRoutes
+
+for numPads = 0 : numFacilities
     
     numStations = numFacilities - numPads;
         
-        keyboard
+
         % load critical infomation
         [shortest_paths_matrix, TOP_FLOWS, linkIDMatrix, LINK] = loadCriticalInfo(networkID,...
             numRoutes);
